@@ -7,7 +7,13 @@ pipeline{
                 git url:"https://github.com/Sahulinkan7/ERMS.git"
             }
             post{
-                echo "github clone done"
+                success{
+                    echo "github clone done"
+                }
+                failure{
+                    echo "cloning failed"
+                }
+                
             }
         }
         
