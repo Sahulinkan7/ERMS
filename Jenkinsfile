@@ -1,87 +1,68 @@
 pipeline{
     agent any
-    stages
-    {
-        stage ("clone ERMS project code from github")
-        {
+    stages{
+        stage("clone todo application code"){
             steps{
-                echo "cloning from github repo"
-                git url:"https://github.com/Sahulinkan7/ERMS.git",branch:"main"
+                echo "cloning from github"
+                git url:"https://github.com/Sahulinkan7/todo-list.git",branch:"main"
             }
             post{
                 success{
                     echo "github clone done"
                 }
-                failure{
-                    echo "cloning failed"
-                }
-                
             }
         }
-        stage (" Building the code : Building docker image ")
-        {
-            steps{
-                
-                echo "building docker image"
-                sh "docker build -t erms ."
-            }
-            post{
-                success{
-                    echo "docker image building done."
-                }
-                failure{
-                    echo "building docker image failed"
-                }
-            }
-        }
-        stage ("pushing image to docker hub ")
-        {
-            steps{
-                echo "pushing image to dockerhub"
-                withCredentials([usernamePassword(credentialsId:"dockerHub",passwordVariable:"dockerHubpass",usernameVariable:"dockerHubuser")]){
-                    sh "docker tag erms ${env.dockerHubuser}/erms:latest"
-                    sh "docker login -u ${env.dockerHubuser} -p ${env.dockerHubpass}"
-                    sh "docker push ${env.dockerHubuser}/erms:latest"
-                }
-                post{
-                    success{
-                        echo "image pushed to docker hub registry."
-                    }
-                    failure{
-                        echo "error : image could not pushed to docker hub registry."
-                    }
-                    always{
-                        echo "some issue in this stage of pushing image to dockerhub"
-                    }
-                }
-            }
-        }
-        stage ("pulling and running docker image in slave node")
+        // stage("Building the code : building docker image"){
+        //     steps{
+        //         echo "building docker image for the application."
+        //         sh "docker build -t todoapp ."
+        //     }
+        //     post{
+        //         success{
+        //             echo "building image done"
+        //         }
+        //     }
+        // }
+        // stage("pushing image to docker hub"){
+        //     steps{
+        //         echo "pushing the image to docker hub"
+        //         withCredentials([usernamePassword(credentialsId:"dockerHub",passwordVariable:"dockerHubpass",usernameVariable:"dockerHubuser")]){
+        //             sh "docker tag todoapp ${env.dockerHubuser}/todoapp:latest"
+        //             sh "docker login -u ${env.dockerHubuser} -p ${env.dockerHubpass}"
+        //             sh "docker push ${env.dockerHubuser}/todoapp:latest"
+        //         }
+        //     }
+        //     post{
+        //         success{
+        //             echo "Image pushed to dockerhub registry."
+        //         }
+        //     }
+        // }
+        stage (" pull image from dockerhub and run on slave node")
         {
             agent{
                 label 'slave'
             }
             steps{
-                echo "running docker image in aws slave node "
+                echo "running todo app container in aws slave node"
                 sh "docker run -d -p 8000:8000 sahulinkan7/erms:latest"
             }
             post{
                 success{
-                    echo "********** container running successfully **********"
+                    echo "======== container running in 8000 port of slave node========"
                 }
                 failure{
-                    echo "************* docker container not running ***********"
+                    echo "======== docker container is not running ========"
                 }
             }
         }
-        
     }
     post{
         success{
-            echo " ******************  pipeline executed successfully ***********************"
+            echo "========pipeline executed successfully ========"
         }
         failure{
-            echo " %%%%%%%%%%%%%%%  pipeline execution failed %%%%%%%%%%%%%%%%%%%"
+            echo "========pipeline execution failed========"
         }
     }
 }
