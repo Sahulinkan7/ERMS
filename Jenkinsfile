@@ -16,6 +16,20 @@ pipeline{
                 
             }
         }
+        stage (" Building the code : Building docker image "){
+            steps{
+                echo "building docker image"
+                sh "docker build -t erms:latest ."
+            }
+            post{
+                success{
+                    echo "docker image building done."
+                }
+                failure{
+                    echo "building docker image failed"
+                }
+            }
+        }
         
     }
 }
