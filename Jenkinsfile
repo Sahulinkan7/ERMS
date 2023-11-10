@@ -35,7 +35,7 @@ pipeline{
                 echo "pushing image to dockerhub"
                 withCredentials([usernamePassword(credentialsId:"dockerHub",passwordVariable:"dockerHubpass",usernameVariable:"dockerHubuser")]){
                     sh "docker tag erms:latest ${env.dockerHubuser}/erms:latest"
-                    sh "docker login -u ${env.dockerHubuser} -p {env.dockerHubpass}"
+                    sh "docker login -u ${env.dockerHubuser} -p ${env.dockerHubpass}"
                     sh "docker push ${env.dockerHubuser}/erms:latest"
                 }
                 post{
