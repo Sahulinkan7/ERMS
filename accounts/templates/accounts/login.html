@@ -1,0 +1,29 @@
+{% extends "core/base.html" %}
+
+
+{% block content %}
+
+<div class="container">
+    <div class="row mt-5">
+        <div class="col-sm-3">
+
+        </div>
+        <div class="col-sm-6 shadow p-2">
+            <form action="" method="post" class="p-3" novalidate>
+                {% csrf_token %}
+                {% for field in form %}
+                    {{field.label_tag}} <span class="errors">{{field.errors | striptags}}</span>
+                    {{field}}
+                {% endfor %}
+                <input type="submit" value="Login" class="btn btn-primary my-2 form-control">
+                <span class="errors">{{form.non_field_errors | striptags}}</span>
+            </form>
+        </div>
+        <div class="col-sm-3">
+            
+        </div>
+    </div>
+</div>
+
+
+{% endblock content %}

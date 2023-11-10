@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ERMS</title>
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    {% block corecss %}
+        <link rel="stylesheet" href="{% static 'core/css/bootstrap.css' %}">
+        <link rel="stylesheet" href="{% static 'core/css/bootstrap.min.css' %}">
+        <link rel="stylesheet" href="{% static 'core/css/core.css' %}">
+    {% endblock corecss %}
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-2 p-0">
+                <div class="text-center">
+                    <img class="img-fluid mt-5 rounded-circle" src="{% static 'accounts/images/IMG_4616_compressed.jpg' %}" alt="image" width="100px" height="100px">
+                    <h2>{{request.user.first_name}} {{request.user.last_name}}</h2>
+                </div>
+                
+                <div class="list-group text-center">
+                    
+                    <a href="" class="fw-bold list-group-item text-decoration-none list-group-item-action">Dashboard</a>
+                    <a href="{% url 'profile' %}" class="fw-bold list-group-item text-decoration-none list-group-item-action">Edit Profile</a>
+                    <a href="{% url 'showeducation' %}" class="fw-bold list-group-item text-decoration-none list-group-item-action">My Education</a>
+                    <a href="{% url 'education' %}" class="fw-bold list-group-item text-decoration-none list-group-item-action">Edit My Education</a>
+                    <a href="" class="fw-bold list-group-item text-decoration-none list-group-item-action">My Work Experience</a>
+                    <a href="{% url 'experience' %}" class="fw-bold list-group-item text-decoration-none list-group-item-action">Edit Work Experience</a>
+                    <a href="{% url 'changepass' %}" class="fw-bold list-group-item text-decoration-none list-group-item-action">Change Password</a>
+                    <a href="{% url 'logout' %}" class="fw-bold list-group-item text-decoration-none list-group-item-action">Logout</a>
+                    
+                </div>
+            </div>
+            <div class="col-sm-10 p-0">
+                <div class="container">
+                </div>
+                <div class="container-fluid p-2">
+                    <h3 class="text-center border-bottom border-success border-2 border-top p-1">Employee Record Management System</h3>
+                    {% block messages %}
+                        {% if messages %}
+                            {% for message in messages %}
+                                <div class="alert alert-primary alert-{{message.tags}} alert-dismissible fade show" role="alert">
+                                    {{message.tags}} : {{message}}
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                </div>
+                            {% endfor %}
+                           
+                        {% endif %}
+                    {% endblock messages %}
+                    <div class="card empcard shadow">
+                        <div class="card-body">
+                            {% block main %}
+                            
+                            
+                            {% endblock main %}
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+    <script src="{% static 'core/js/bootstrap.min.js' %}"></script>
+</body>
+</html>

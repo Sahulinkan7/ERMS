@@ -1,0 +1,94 @@
+{% extends "core/base2.html" %}
+
+
+{% block main %}
+
+    <div class="card m-1 p-0">
+        <h4 class="card-title ms-5">Post Graduate</h4>
+        <div class="card-body p-1">
+            <table class="table table-hover">
+                <thead>
+                    <tr class="text-center">
+                        <th class="bg-warning">course stream name</th>
+                        <th class="bg-warning">course Institute name</th>
+                        <th class="bg-warning">Passing percentage</th>
+                        <th class="bg-warning">Year of passing</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="text-center">
+                        <td>{{employee.coursepg}}</td>
+                        <td>{{employee.institutepg}}</td>
+                        <td>{{employee.percentagepg}}</td>
+                        <td>{{employee.yearofpassingpg}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <h4 class="card-title ms-5">Under Graduate</h4>
+        <div class="card-body p-1">
+            <table class="table table-hover">
+                <thead>
+                    <tr class="text-center">
+                        <th class="bg-warning">course stream name</th>
+                        <th class="bg-warning">course Institute name</th>
+                        <th class="bg-warning">Passing percentage</th>
+                        <th class="bg-warning">Year of passing</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="text-center">
+                        <td>{{employee.coursegrad}}</td>
+                        <td>{{employee.institutegrad}}</td>
+                        <td>{{employee.percentagegrad}}</td>
+                        <td>{{employee.yearofpassinggrad}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <h4 class="card-title ms-5">Intermediate (12th)</h4>
+        <div class="card-body p-1">
+            <table class="table table-hover">
+                <thead>
+                    <tr class="text-center">
+                        <th class="bg-warning">course stream name</th>
+                        <th class="bg-warning">course Institute name</th>
+                        <th class="bg-warning">Passing percentage</th>
+                        <th class="bg-warning">Year of passing</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="text-center">
+                        <td>{{employee.coursessc}}</td>
+                        <td>{{employee.institutessc}}</td>
+                        <td>{{employee.percentagessc}}</td>
+                        <td>{{employee.yearofpassingssc}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+         <h4 class="card-title ms-5">School (10th)</h4>
+        <div class="card-body p-1">
+            <table class="table table-hover">
+                <thead>
+                    <tr class="text-center">
+                        <th class="bg-warning">course stream name</th>
+                        <th class="bg-warning">course Institute name</th>
+                        <th class="bg-warning">Passing percentage</th>
+                        <th class="bg-warning">Year of passing</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="text-center">
+                        <td>{{employee.coursehsc}}</td>
+                        <td>{{employee.institutehsc}}</td>
+                        <td>{{employee.percentagehsc}}</td>
+                        <td>{{employee.yearofpassinghsc}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    
+
+{% endblock main %}

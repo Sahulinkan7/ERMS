@@ -1,0 +1,32 @@
+{% extends "core/base.html" %}
+
+{% block content %}
+
+    <div class="col-sm-1">
+
+    </div>
+    <div class="col-sm-10">
+        <div class="card shadow m-5">
+            <div class="card-body">
+                <form action="" method="post" novalidate>
+    
+                    {% csrf_token %}
+                    {% for field in form %}
+            
+                        {{field.label_tag}} <span class="errors">{{field.errors|striptags}}</span>
+                        {{field}} 
+                
+                    {% endfor %}
+                    <input type="submit" value="Create account" class="form-control btn btn-primary mt-1">
+                    <span class="errors">{{form.non_field_errors|striptags}}</span>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-1">
+
+    </div>
+    
+    
+    
+{% endblock content %}

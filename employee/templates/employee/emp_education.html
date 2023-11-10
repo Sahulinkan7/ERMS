@@ -1,0 +1,30 @@
+{% extends "core/base2.html" %}
+
+
+{% block main %}
+
+<h4 class="border-bottom border-success text-danger pb-1">Employee Education Details</h4>
+
+<div class="card shadow p-1 mx-2 mt-0">
+    <div class="card-body">
+        
+            <form action="" method="post" novalidate>
+                {% csrf_token %}
+                <div class="row">
+                    {% for field in form %}
+                        <div class="col-sm-6">
+                            {{field.label_tag}} <small class="errors">{{field.errors | striptags}}</small>
+                            {{field}}
+                        </div>
+                    {% endfor %}
+                </div>
+                <input type="submit" value="Save" class="btn btn-primary mt-2 form-control">
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+
+{% endblock main %}
