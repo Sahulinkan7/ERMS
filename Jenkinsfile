@@ -15,7 +15,7 @@ pipeline{
         stage("Building the code : building docker image"){
             steps{
                 echo "building docker image for the application."
-                sh "docker build -t employee ."
+                sh "docker build -t erms:latest ."
             }
             post{
                 success{
@@ -27,9 +27,9 @@ pipeline{
             steps{
                 echo "pushing the image to docker hub"
                 withCredentials([usernamePassword(credentialsId:"dockerHub",passwordVariable:"dockerHubpass",usernameVariable:"dockerHubuser")]){
-                    sh "docker tag employee ${env.dockerHubuser}/employee:latest"
+                    sh "docker tag erms:latest ${env.dockerHubuser}/erms:latest"
                     sh "docker login -u ${env.dockerHubuser} -p ${env.dockerHubpass}"
-                    sh "docker push ${env.dockerHubuser}/employee:latest"
+                    sh "docker push ${env.dockerHubuser}/erms:latest"
                 }
             }
             post{
@@ -45,7 +45,7 @@ pipeline{
             }
             steps{
                 echo "running todo app container in aws slave node"
-                sh "docker run -d -p 8000:8000 sahulinkan7/employee:latest"
+                sh "docker run -d -p 8000:8000 sahulinkan7/erms:latest"
             }
             post{
                 success{
