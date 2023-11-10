@@ -1,7 +1,7 @@
 from django.shortcuts import render,HttpResponseRedirect
 from .forms import SignupForm,LoginForm,EditprofileForm,EditUserForm,ChangepassForm
 from .models import EmployeeDetail
-from employee.models import EmployeeEducationDetail
+from employee.models import EmployeeEducationDetail,EmployeeExperience
 from django.contrib.auth.models import User
 from django.contrib import messages
 from django.contrib.auth import login,logout,authenticate,update_session_auth_hash
@@ -19,6 +19,7 @@ def Signupview(request):
             usr=User.objects.create_user(username=email,first_name=firstname,last_name=lastname,email=email,password=password)
             EmployeeDetail.objects.create(user=usr,empcode=empcode)
             EmployeeEducationDetail.objects.create(user=usr)
+            EmployeeExperience.objects.create(user=usr)
             messages.success(request,"your account created successfuly !")
             return HttpResponseRedirect("/accounts/login/")
         else:
