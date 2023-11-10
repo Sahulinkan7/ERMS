@@ -21,6 +21,7 @@ pipeline{
         stage (" Building the code : Building docker image ")
         {
             steps{
+                
                 echo "building docker image"
                 sh "docker build -t erms ."
             }
@@ -48,6 +49,9 @@ pipeline{
                     }
                     failure{
                         echo "error : image could not pushed to docker hub registry."
+                    }
+                    always{
+                        echo "some issue in this stage of pushing image to dockerhub"
                     }
                 }
             }
