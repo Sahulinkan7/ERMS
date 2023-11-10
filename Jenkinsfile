@@ -1,5 +1,8 @@
 pipeline{
     agent any
+    environment {
+        CRED_PASS = credentials('example-credentials-id')
+    }
     stages
     {
         stage ("clone ERMS project code from github")
@@ -39,7 +42,8 @@ pipeline{
                 echo "pushing image to dockerhub"
                 withCredentials([usernamePassword(credentialsId:"dockerHub",passwordVariable:"dockerHubpass",usernameVariable:"dockerHubuser")]){
                     sh "docker tag erms ${env.dockerHubuser}/erms:latest"
-                    sh "docker login -u ${env.dockerHubuser} -p ${env.dockerHubpass}"
+                    // sh "docker login -u ${env.dockerHubuser} -p ${env.dockerHubpass}"
+                    sh("docker login -u $CRED_PASS_USR:$CRED_PASS_PSW")
                     sh "docker push ${env.dockerHubuser}/erms:latest"
                 }
                 post{
