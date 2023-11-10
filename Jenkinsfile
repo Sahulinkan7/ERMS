@@ -1,7 +1,9 @@
 pipeline{
     agent any
-    stages{
-        stage ("clone ERMS project code from github"){
+    stages
+    {
+        stage ("clone ERMS project code from github")
+        {
             steps{
                 echo "cloning from github repo"
                 git url:"https://github.com/Sahulinkan7/ERMS.git",branch:"main"
@@ -16,10 +18,11 @@ pipeline{
                 
             }
         }
-        stage (" Building the code : Building docker image "){
+        stage (" Building the code : Building docker image ")
+        {
             steps{
                 echo "building docker image"
-                sh "docker build -t erms:latest ."
+                sh "docker build -t erms ."
             }
             post{
                 success{
@@ -30,11 +33,12 @@ pipeline{
                 }
             }
         }
-        stage ("pushing image to docker hub "){
+        stage ("pushing image to docker hub ")
+        {
             steps{
                 echo "pushing image to dockerhub"
                 withCredentials([usernamePassword(credentialsId:"dockerHub",passwordVariable:"dockerHubpass",usernameVariable:"dockerHubuser")]){
-                    sh "docker tag erms:latest ${env.dockerHubuser}/erms:latest"
+                    sh "docker tag erms ${env.dockerHubuser}/erms:latest"
                     sh "docker login -u ${env.dockerHubuser} -p ${env.dockerHubpass}"
                     sh "docker push ${env.dockerHubuser}/erms:latest"
                 }
@@ -48,7 +52,8 @@ pipeline{
                 }
             }
         }
-        stage ("pulling and running docker image in slave node"){
+        stage ("pulling and running docker image in slave node")
+        {
             agent{
                 label 'slave'
             }
