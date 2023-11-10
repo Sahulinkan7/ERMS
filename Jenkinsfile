@@ -12,17 +12,17 @@ pipeline{
                 }
             }
         }
-        // stage("Building the code : building docker image"){
-        //     steps{
-        //         echo "building docker image for the application."
-        //         sh "docker build -t todoapp ."
-        //     }
-        //     post{
-        //         success{
-        //             echo "building image done"
-        //         }
-        //     }
-        // }
+        stage("Building the code : building docker image"){
+            steps{
+                echo "building docker image for the application."
+                sh "docker build -t employee ."
+            }
+            post{
+                success{
+                    echo "building image done"
+                }
+            }
+        }
         // stage("pushing image to docker hub"){
         //     steps{
         //         echo "pushing the image to docker hub"
