@@ -23,21 +23,21 @@ pipeline{
                 }
             }
         }
-        // stage("pushing image to docker hub"){
-        //     steps{
-        //         echo "pushing the image to docker hub"
-        //         withCredentials([usernamePassword(credentialsId:"dockerHub",passwordVariable:"dockerHubpass",usernameVariable:"dockerHubuser")]){
-        //             sh "docker tag todoapp ${env.dockerHubuser}/todoapp:latest"
-        //             sh "docker login -u ${env.dockerHubuser} -p ${env.dockerHubpass}"
-        //             sh "docker push ${env.dockerHubuser}/todoapp:latest"
-        //         }
-        //     }
-        //     post{
-        //         success{
-        //             echo "Image pushed to dockerhub registry."
-        //         }
-        //     }
-        // }
+        stage("pushing image to docker hub"){
+            steps{
+                echo "pushing the image to docker hub"
+                withCredentials([usernamePassword(credentialsId:"dockerHub",passwordVariable:"dockerHubpass",usernameVariable:"dockerHubuser")]){
+                    sh "docker tag employee ${env.dockerHubuser}/employee:latest"
+                    sh "docker login -u ${env.dockerHubuser} -p ${env.dockerHubpass}"
+                    sh "docker push ${env.dockerHubuser}/employee:latest"
+                }
+            }
+            post{
+                success{
+                    echo "Image pushed to dockerhub registry."
+                }
+            }
+        }
         stage (" pull image from dockerhub and run on slave node")
         {
             agent{
@@ -45,7 +45,7 @@ pipeline{
             }
             steps{
                 echo "running todo app container in aws slave node"
-                sh "docker run -d -p 8000:8000 sahulinkan7/erms:latest"
+                sh "docker run -d -p 8000:8000 sahulinkan7/employee:latest"
             }
             post{
                 success{
